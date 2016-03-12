@@ -4,6 +4,8 @@ Relatedly, if you know of any other ways of creating links I'd be interested in 
 
 (Surprisingly, *git bash*'s `ln -s` command seems to just *copy* the files and directories.)
 
+TODO: I'm planning to run this cross-NTFS-device later today.
+
 ----
 
 ([@iarna](https://github.com/iarna)) Windows 10 Pro, as an ordinary user
