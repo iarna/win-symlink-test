@@ -46,6 +46,19 @@ Junction created for foodir <<===>> testdir
 ok
 ```
 
+---
+
+Incidentally, this is what the last bit does on a non-NTFS folder (say, a
+network drive or vm shared folder):
+
+```
+mklink /J destDIR srcDIR
+Local NTFS volumes are required to complete the operation.
+Command failed: mklink /J foodir testdir
+Local NTFS volumes are required to complete the operation.
+not ok
+```
+
 ----
 
 ([@iarna](https://github.com/iarna)) Windows 10 Pro, as Administrator
@@ -76,4 +89,48 @@ ok
 mklink /J destDIR srcDIR
 Junction created for foodir <<===>> testdir
 ok
+```
+
+----
+
+And the Admin on a vbox shared folder:
+
+```
+symlinkSync(srcFILE, destFILE)
+EISDIR: illegal operation on a directory, symlink 'test.js' -> 'F:\foo.js'
+not ok
+--------------
+symlinkSync(srcDIR, destDIR)
+EISDIR: illegal operation on a directory, symlink 'testdir' -> 'F:\foodir'
+not ok
+--------------
+mklink destFILE srcFILE
+The device does not support symbolic links.
+Command failed: mklink foo.js test.js
+The device does not support symbolic links.
+not ok
+--------------
+mklink /D destDIR srcDIR
+The device does not support symbolic links.
+Command failed: mklink /D foodir testdir
+The device does not support symbolic links.
+not ok
+--------------
+mklink /H destFILE srcFILE
+The device does not support symbolic links.
+Command failed: mklink foo.js test.js
+The device does not support symbolic links.
+not ok
+--------------
+mklink /H destDIR srcDIR
+The device does not support symbolic links.
+Command failed: mklink /D foodir testdir
+The device does not support symbolic links.
+not ok
+--------------
+mklink /J destDIR srcDIR
+Local NTFS volumes are required to complete the operation.
+Command failed: mklink /J foodir testdir
+Local NTFS volumes are required to complete the operation.
+not ok
 ```
