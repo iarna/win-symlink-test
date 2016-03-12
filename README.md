@@ -7,25 +7,41 @@ Relatedly, if you know of any other ways of creating links I'd be interested in 
 ([@iarna](https://github.com/iarna)) Windows 10 Pro, as an ordinary user
 
 ```
-not ok - symlinkSync(srcFILE, destFILE): EPERM: operation not permitted, symlink 'test.js' -> 'C:\Users\Rebecca\Documents\GitHub\symlink-test\foo.js'
-not ok - symlinkSync(srcDIR, destDIR): EPERM: operation not permitted, symlink 'testdir' -> 'C:\Users\Rebecca\Documents\GitHub\symlink-test\foodir'
+symlinkSync(srcFILE, destFILE)
+EPERM: operation not permitted, symlink 'test.js' -> 'C:\Users\Rebecca\Documents\GitHub\win-symlink-test\foo.js'
+not ok
 --------------
+symlinkSync(srcDIR, destDIR)
+EPERM: operation not permitted, symlink 'testdir' -> 'C:\Users\Rebecca\Documents\GitHub\win-symlink-test\foodir'
+not ok
+--------------
+mklink destFILE srcFILE
 You do not have sufficient privilege to perform this operation.
-not ok - mklink destFILE srcFILE: Command failed: mklink foo.js test.js: You do not have sufficient privilege to perform this operation.
---------------
+Command failed: mklink foo.js test.js
 You do not have sufficient privilege to perform this operation.
-not ok - mklink /D destDIR srcDIR: Command failed: mklink /D foodir testdir: You do not have sufficient privilege to perform this operation.
+not ok
 --------------
+mklink /D destDIR srcDIR
 You do not have sufficient privilege to perform this operation.
-not ok - mklink /H destFILE srcFILE: Command failed: mklink foo.js test.js: You do not have sufficient privilege to perform this operation.
---------------
-Access is denied.
-not ok - mklink /D /H destDIR srcDIR: Command failed: mklink /D /H foodir testdir: Access is denied.
---------------
+Command failed: mklink /D foodir testdir
 You do not have sufficient privilege to perform this operation.
-not ok - mklink /H destDIR srcDIR: Command failed: mklink /D foodir testdir: You do not have sufficient privilege to perform this operation.
+not ok
 --------------
-ok - mklink /J destDIR srcDIR: Junction created for foodir <<===>> testdir
+mklink /H destFILE srcFILE
+You do not have sufficient privilege to perform this operation.
+Command failed: mklink foo.js test.js
+You do not have sufficient privilege to perform this operation.
+not ok
+--------------
+mklink /H destDIR srcDIR
+You do not have sufficient privilege to perform this operation.
+Command failed: mklink /D foodir testdir
+You do not have sufficient privilege to perform this operation.
+not ok
+--------------
+mklink /J destDIR srcDIR
+Junction created for foodir <<===>> testdir
+ok
 ```
 
 ----
@@ -33,19 +49,29 @@ ok - mklink /J destDIR srcDIR: Junction created for foodir <<===>> testdir
 ([@iarna](https://github.com/iarna)) Windows 10 Pro, as Administrator
 
 ```
-ok - symlinkSync(srcFILE, destFILE)
-ok - symlinkSync(srcDIR, destDIR)
+symlinkSync(srcFILE, destFILE)
+ok
 --------------
-ok - mklink destFILE srcFILE: symbolic link created for foo.js <<===>> test.js
+symlinkSync(srcDIR, destDIR)
+ok
 --------------
-ok - mklink /D destDIR srcDIR: symbolic link created for foodir <<===>> testdir
+mklink destFILE srcFILE
+symbolic link created for foo.js <<===>> test.js
+ok
 --------------
-ok - mklink /H destFILE srcFILE: symbolic link created for foo.js <<===>> test.js
+mklink /D destDIR srcDIR
+symbolic link created for foodir <<===>> testdir
+ok
 --------------
-Access is denied.
-not ok - mklink /D /H destDIR srcDIR: Command failed: mklink /D /H foodir testdir: Access is denied.
+mklink /H destFILE srcFILE
+symbolic link created for foo.js <<===>> test.js
+ok
 --------------
-ok - mklink /H destDIR srcDIR: symbolic link created for foodir <<===>> testdir
+mklink /H destDIR srcDIR
+symbolic link created for foodir <<===>> testdir
+ok
 --------------
-ok - mklink /J destDIR srcDIR: Junction created for foodir <<===>> testdir
+mklink /J destDIR srcDIR
+Junction created for foodir <<===>> testdir
+ok
 ```
