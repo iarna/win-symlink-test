@@ -2,6 +2,8 @@ This is a little repo to test various type of link support on different windows 
 
 Relatedly, if you know of any other ways of creating links I'd be interested in adding those.
 
+(Surprisingly, *git bash*'s `ln -s` command seems to just *copy* the files and directories.)
+
 ----
 
 ([@iarna](https://github.com/iarna)) Windows 10 Pro, as an ordinary user
