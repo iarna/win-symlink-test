@@ -6,27 +6,32 @@ runJs('symlinkSync(srcDIR, destDIR)', function () { fs.symlinkSync('testdir', 'f
 runCmd('mklink destFILE srcFILE', 'mklink foo.js test.js', cleanup('del foo.js'))
 runCmd('mklink /D destDIR srcDIR', 'mklink /D foodir testdir', cleanup('rmdir foodir'))
 runCmd('mklink /H destFILE srcFILE', 'mklink foo.js test.js', cleanup('del foo.js'))
-runCmd('mklink /D /H destDIR srcDIR', 'mklink /D /H foodir testdir', cleanup('rmdir foodir'))
 runCmd('mklink /H destDIR srcDIR', 'mklink /D foodir testdir', cleanup('rmdir foodir'))
 runCmd('mklink /J destDIR srcDIR', 'mklink /J foodir testdir', cleanup('rmdir foodir'))
 
 function runJs(msg, todo, cleanup) {
+  console.log('--------------')
   try {
+    console.log(msg)
     todo()
-    console.log('ok -', msg)
+    console.log('ok')
     cleanup()
   } catch (ex) {
-    console.log('not ok -', msg + ':', ex.message.trim())
+    console.log(ex.message.trim())
+    console.log('not ok')
   }
 }
 
 function runCmd (msg, cmd, cleanup) {
   console.log('--------------')
   try {
-    console.log('ok -',msg + ':', execSync(cmd).toString().trim().replace(/\n/g, ': '))
+    console.log(msg)
+    console.log(execSync(cmd).toString().trim())
+    console.log('ok')
     cleanup()
   } catch (ex) {
-    console.log('not ok -',msg + ':', ex.message.trim().replace(/\n/g, ': '))
+    console.log(ex.message.trim())
+    console.log('not ok')
   }
 }
 
