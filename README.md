@@ -4,8 +4,6 @@ Relatedly, if you know of any other ways of creating links I'd be interested in 
 
 (Surprisingly, *git bash*'s `ln -s` command seems to just *copy* the files and directories.)
 
-TODO: I'm planning to run this cross-NTFS-device later today.
-
 ----
 
 ([@iarna](https://github.com/iarna)) Windows 10 Pro, as an ordinary user
@@ -128,6 +126,90 @@ mklink /H destDIR srcDIR
 The device does not support symbolic links.
 Command failed: mklink /D foodir testdir
 The device does not support symbolic links.
+not ok
+--------------
+mklink /J destDIR srcDIR
+Local NTFS volumes are required to complete the operation.
+Command failed: mklink /J foodir testdir
+Local NTFS volumes are required to complete the operation.
+not ok
+```
+
+----
+
+Regular user, via smb (Mac server):
+
+```
+symlinkSync(srcFILE, destFILE)
+EPERM: operation not permitted, symlink 'test.js' -> 'Z:\code\win-symlink-test\foo.js'
+not ok
+--------------
+symlinkSync(srcDIR, destDIR)
+EPERM: operation not permitted, symlink 'testdir' -> 'Z:\code\win-symlink-test\foodir'
+not ok
+--------------
+mklink destFILE srcFILE
+You do not have sufficient privilege to perform this operation.
+Command failed: mklink foo.js test.js
+You do not have sufficient privilege to perform this operation.
+not ok
+--------------
+mklink /D destDIR srcDIR
+You do not have sufficient privilege to perform this operation.
+Command failed: mklink /D foodir testdir
+You do not have sufficient privilege to perform this operation.
+not ok
+--------------
+mklink /H destFILE srcFILE
+You do not have sufficient privilege to perform this operation.
+Command failed: mklink foo.js test.js
+You do not have sufficient privilege to perform this operation.
+not ok
+--------------
+mklink /H destDIR srcDIR
+You do not have sufficient privilege to perform this operation.
+Command failed: mklink /D foodir testdir
+You do not have sufficient privilege to perform this operation.
+not ok
+--------------
+mklink /J destDIR srcDIR
+Local NTFS volumes are required to complete the operation.
+Command failed: mklink /J foodir testdir
+Local NTFS volumes are required to complete the operation.
+not ok
+```
+
+----
+
+Admin user via smb (Mac server):
+
+```
+symlinkSync(srcFILE, destFILE)
+ok
+--------------
+symlinkSync(srcDIR, destDIR)
+ok
+--------------
+mklink destFILE srcFILE
+symbolic link created for foo.js <<===>> test.js
+ok
+--------------
+mklink /D destDIR srcDIR
+symbolic link created for foodir <<===>> testdir
+ok
+The directory name is invalid.
+Command failed: rmdir foodir
+The directory name is invalid.
+not ok
+--------------
+mklink /H destFILE srcFILE
+symbolic link created for foo.js <<===>> test.js
+ok
+--------------
+mklink /H destDIR srcDIR
+Cannot create a file when that file already exists.
+Command failed: mklink /D foodir testdir
+Cannot create a file when that file already exists.
 not ok
 --------------
 mklink /J destDIR srcDIR
