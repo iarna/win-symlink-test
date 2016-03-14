@@ -183,6 +183,10 @@ not ok
 
 Admin user via smb (Mac server):
 
+NOTICE, the results of trying to clean up after `mklink /D`– ordinarily this produces a
+special directory link that's removed with `rmdir`, but on a smb mounted partition from a
+unix type host, it creates a unix symlink which is a _file_ and needs to be `del`ed.
+
 ```
 symlinkSync(srcFILE, destFILE)
 ok

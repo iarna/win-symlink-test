@@ -4,7 +4,7 @@ var execSync = require('child_process').execSync
 runJs('symlinkSync(srcFILE, destFILE)', function () { fs.symlinkSync('test.js', 'foo.js') }, cleanup('del foo.js'))
 runJs('symlinkSync(srcDIR, destDIR)', function () { fs.symlinkSync('testdir', 'foodir') }, cleanup('del foodir'))
 runCmd('mklink destFILE srcFILE', 'mklink foo.js test.js', cleanup('del foo.js'))
-runCmd('mklink /D destDIR srcDIR', 'mklink /D foodir testdir', cleanup('rmdir foodir'))
+runCmd('mklink /D destDIR srcDIR', 'mklink /D foodir testdir', cleanup('rmdir foodir || del foodir'))
 runCmd('mklink /H destFILE srcFILE', 'mklink foo.js test.js', cleanup('del foo.js'))
 runCmd('mklink /H destDIR srcDIR', 'mklink /D foodir testdir', cleanup('rmdir foodir'))
 runCmd('mklink /J destDIR srcDIR', 'mklink /J foodir testdir', cleanup('rmdir foodir'))
